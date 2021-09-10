@@ -4,12 +4,34 @@ const initialQuestion = [
     name: 'initalQuestion',
     message: 'Please select ONE of the options',
     choices: [
-      'Add a department',
-      'Add a role',
-      'Add an employee',
-      'View all departments',
-      'View all roles',
-      'View all employees'
+      {
+        name: 'Add a department',
+        value: 'ADD_DEPARTMENT'
+      },
+      {
+        name: 'Add a role',
+        value: 'ADD_ROLE'
+      },
+      {
+        name: 'Add an employee',
+        value: 'ADD_EMPLOYEE'
+      },
+      {
+        name: 'View all deaprtments',
+        value: 'VIEW_DEPARTMENTS'
+      },
+      {
+        name: 'View all roles',
+        value: 'VIEW_ROLES'
+      },
+      {
+        name: 'View all employees',
+        value: 'VIEW_EMPLOYEES'
+      },
+      {
+        name: 'Quit',
+        value: 'QUIT'
+      }
     ]
   }
 ]
