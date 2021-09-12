@@ -49,8 +49,24 @@ function viewDepartment() {
     })
     .then(() => initialPrompt());
 }
-function viewRole() {}
-function viewEmployee() {}
+
+function viewRole() {
+  db.viewRole()
+    .then(([rows]) => {
+      const roles = rows;
+      console.table(roles);
+    })
+    .then(() => initialPrompt());
+}
+
+function viewEmployee() {
+  db.viewEmployee()
+    .then(([rows]) => {
+      const employees = rows;
+      console.table(employees);
+    })
+    .then(() => initialPrompt());
+}
 
 function addDepartment() {
   inquirer
