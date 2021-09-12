@@ -1,28 +1,38 @@
-const inquirer = require('inquirer');
-const db = require('./db');
+const inquirer = require("inquirer");
+const db = require("./db");
 
 const {
   initialQuestion,
   addDepartmentQs,
-  addRoleQs,
-  addEmployeeQs
-} = require('./utils/questions');
+  // addRoleQs,
+  // addEmployeeQs
+} = require("./utils/questions");
 
 function init() {
+  initialPrompt();
+}
+function initialPrompt() {
   inquirer
     .prompt(initialQuestion)
     .then(res => {
-      const choice = res.choice;
-
-      switch (choice) {
-        case 'ADD_DEPARTMENT':
+      switch (res.initialQuestion) {
+        case "ADD_DEPARTMENT":
           addDepartment();
           break;
-        case 'ADD_ROLE':
+        case "ADD_ROLE":
           addRole();
           break;
-        case 'ADD_EMPLOYEE':
+        case "ADD_EMPLOYEE":
           addEmployee();
+          break;
+        case "VIEW_DEPARTMENT":
+          viewDepartment();
+          break;
+        case "VIEW_ROLE":
+          viewRole();
+          break;
+        case "VIEW_EMPLOYEE":
+          viewEmployee();
           break;
         default:
           quit();
@@ -31,6 +41,17 @@ function init() {
     .catch(err => console.log(err))
 }
 
+function viewDepartment() {
+  db.viewDepartment()
+    .then(([rows]) => {
+      const departments = rows;
+      console.table(departments);
+    })
+    .then(() => initialPrompt());
+}
+function viewRole() {}
+function viewEmployee() {}
+
 function addDepartment() {
   inquirer
     .prompt(addDepartmentQs)
@@ -38,7 +59,7 @@ function addDepartment() {
       const name = res;
       db.addDepartment(name)
         .then(() => console.log(`${name.name} added`))
-        .then(() => init())
+        .then(() => initialPrompt())
     })
 }
 
@@ -47,7 +68,7 @@ function addRole() {}
 function addEmployee() {}
 
 function quit() {
-  console.log('Done');
+  console.log("Done");
   process.exit();
 }
 
