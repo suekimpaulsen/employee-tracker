@@ -52,56 +52,21 @@ const addDepartmentQs = [
   }
 ]
 
-const addRoleQs = [
-  {
-    type: "input",
-    name: "name",
-    message: "Please enter the name of the role",
-    validate: name => {
-      if (name) {
-        return true;
-      } else {
-        console.log("Please enter the new role");
-        return false;
-      }
-    }
-  },
-  {
-    type: "input",
-    name: "salary"
-  },
-  {
-    type: "list",
-    name: "department"
-  }
-]
-
 const addEmployeeQs = [
   {
     type: "input",
-    name: "firstName"
+    name: "firstName",
+    message: "Please enter the employee's first name"
   },
   {
     type: "input",
-    name: "lastName"
-  },
-  {
-    type: "list",
-    name: "department"
-  },
-  {
-    type: "input",
-    name: "managerFirstName"
-  },
-  {
-    type: "input",
-    name: "managerLastName"
+    name: "lastName",
+    message: "Please enter the employee's last name"
   }
 ]
 
 module.exports = {
   initialQuestion,
   addDepartmentQs,
-  addRoleQs,
   addEmployeeQs
 }

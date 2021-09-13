@@ -4,8 +4,7 @@ const db = require("./db");
 const {
   initialQuestion,
   addDepartmentQs,
-  // addRoleQs,
-  // addEmployeeQs
+  addEmployeeQs
 } = require("./utils/questions");
 
 function init() {
@@ -79,9 +78,77 @@ function addDepartment() {
     })
 }
 
-function addRole() {}
+function addRole() {
+  db.viewDepartment()
+    .then(([rows]) => {
+      const departments = rows;
+      const departmentChoices = departments.map(({ id, name }) => ({
+        name: name,
+        value: id
+      }));
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            name: "name",
+            message: "Please enter the name of the role",
+            validate: name => {
+              if (name) {
+                return true;
+              } else {
+                console.log("Please enter the new role");
+                return false;
+              }
+            }
+          },
+          {
+            type: "input",
+            name: "salary",
+            message: "Please enter the salary of the role"
+          },
+          {
+            type: "list",
+            name: "department",
+            message: "Please select the department that the role belongs to",
+            choices: departmentChoices
+          }
+        ])
+        .then(res => {
+          const role = res;
+          db.addRole(role)
+            .then(() => console.log(`${role.name} added`))
+            .then(() => initialPrompt())
+        })
+    })
+}
 
-function addEmployee() {}
+function addEmployee() {
+  inquirer
+    .prompt(addEmployeeQs)
+    .then(res => {
+      db.viewRole()
+        .then(([rows]) => {
+          const roles = rows;
+          const roleChoices = roles.map(({ id, name }) => ({
+            name: name,
+            value: id
+          }));
+          inquirer
+            .prompt({
+              type: "list",
+              name: "role",
+              message: "Please selecet the employee's role",
+              choices: roleChoices
+            })
+            .then(res => {
+              const name = res;
+              db.addEmployee(name)
+                .then(() => console.log(`${name.name} added`))
+                .then(() => initialPrompt())
+            })
+        })
+    })
+}
 
 function quit() {
   console.log("Done");
