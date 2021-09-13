@@ -10,7 +10,8 @@ SO THAT I can organize and plan my business
 * [Walkthrough Video](#walkthrough-video)
 
 ## How it works:
-- open `integrated terminal`, then run `npm start`
+- open `integrated terminal`, then run `npm install`
+- after all are installed, run `npm start`
 - select one from the list  -- VIEW or ADD
 - select `quit` whenever you are done with the app
 ### Notes:
